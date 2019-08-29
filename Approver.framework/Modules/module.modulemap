@@ -1,0 +1,11 @@
+framework module Approver {
+  umbrella header "Approver.h"
+
+  export *
+  module * { export * }
+}
+
+module Approver.Swift {
+    header "Approver-Swift.h"
+    requires objc
+}
