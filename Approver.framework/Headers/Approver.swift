@@ -55,7 +55,7 @@ public final class Approver : NSObject {
      */
     @objc public static func initializeWithLaunchOptions(_ launchOptions: [UIApplication.LaunchOptionsKey: Any]?,
                                                          appId: String) {
-        
+        //ApproverEngine(launchOptions: launchOptions, appId: appId)
     }
     
     /**
@@ -65,33 +65,66 @@ public final class Approver : NSObject {
         - options: Constants for requesting authorization to interact with the user. By default the constatns are alert, sound, badge.
         - userResponce: The block to execute asynchronously with the results. This block may be executed on a background thread. The block has no return value and has the following parameters:
         - granted: A Boolean value indicating whether authorization was granted. The value of this parameter is true when authorization was granted for one or more options. The value is false when authorization is denied for all options.
+     
+     - Tag: promptForPushNotifications
     */
-    @objc public static func  promptForPushNotifications(options: UNAuthorizationOptions = [.alert, .sound, .badge],
-                                                         userResponce: (_ granted: Bool) -> () ) {
+    @objc public static func promptForPushNotifications(options: UNAuthorizationOptions = [.alert, .sound, .badge],
+                                                        userResponce: (_ granted: Bool) -> () ) {
         
     }
     
-    
-    
-    //@objc public static func getPermissionState() -> Approver.PermissionState {}
-    // 
-    
-    /*
+    /**
+     A globally unique token that identifies this device to APNs.
      
-     pushToken
+     - Important: If app doesn't use Approver [promptForPushNotifications(options:userResponce)](x-source-tag://promptForPushNotifications) approach
+                  then the pushToken has to be installed manually once APNs push token has received in some other way
+    
      
+     - Note: Example In case if app handles push token registration himself
+     ```
+     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        Approver.shared.pushToken = tokenParts.joined()
+     }
+     ```
+     - tag: pushToken
+     */
     public var pushToken : String?
-    { didSet { return "" } }
-    { willSet { } }
-     
-     
+    { didSet {  } }
+    
+    
+     /*
      send notification
-    notification for push token
+     notification for push token
+     //@objc public static func getPermissionState() -> Approver.PermissionState {}
     */
+    
+    /**
+     Log an event.
+     
+     - Parameters:
+     - name The name of the event to be tracked
+     - attributes Arbitrary key:values attributes to be tracked
+     */
+    static func logEvent(_ name: String, attributes: [String : String]) {
+        
+    }
+    
+    /**
+     Log an user info.
+     
+     An user info uploads immediately
+     
+     - Parameters:
+     - attributes Exact key-value attributes to be recorded.
+     */
+    static func logUserInfo(_ attributes: [String : String]) {
+        
+    }
     
 } // class Approver
 
-extension Approver {
+public extension Approver {
     
     /**
      Parses an APS push payload
