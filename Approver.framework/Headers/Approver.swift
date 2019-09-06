@@ -42,10 +42,6 @@ import UserNotifications
  */
 public final class Approver : NSObject {
     
-    /// The singleton Approver object.
-    @objc public static let shared = Approver()
-    private override init() { }
-    
     /**
      Initialize the mandatory Approver SDK Credentials notably App Id
      
@@ -55,7 +51,7 @@ public final class Approver : NSObject {
      */
     @objc public static func initializeWithLaunchOptions(_ launchOptions: [UIApplication.LaunchOptionsKey: Any]?,
                                                          appId: String) {
-        //ApproverEngine(launchOptions: launchOptions, appId: appId)
+        ApproverEngine.shared.initialize(launchOptions: launchOptions, appId: appId)
     }
     
     /**
@@ -70,56 +66,84 @@ public final class Approver : NSObject {
     */
     @objc public static func promptForPushNotifications(options: UNAuthorizationOptions = [.alert, .sound, .badge],
                                                         userResponce: (_ granted: Bool) -> () ) {
-        
+        ApproverEngine.shared.promptForPushNotifications(options: options, userResponce: userResponce)
     }
     
     /**
-     A globally unique token that identifies this device to APNs.
+     Token that identifies this device to push services
+     
+     - Tag: PushTokenType
+    */
+    public enum PushToken {
+        /** APNs token */
+        case apns(token: String)
+        /** Firebase token */
+        case firebase(token: String)
+        /** Custom service token */
+        case custom(token: String, serviceDesc: Dictionary<String, String>)
+    }
+    
+    /**
+     A globally unique token that identifies this device to APNs, Firebase or any other push services.
      
      - Important: If app doesn't use Approver [promptForPushNotifications(options:userResponce)](x-source-tag://promptForPushNotifications) approach
                   then the pushToken has to be installed manually once APNs push token has received in some other way
-    
      
-     - Note: Example In case if app handles push token registration himself
+     - Note: Example: In case if app handles push token registration himself
      ```
      func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
-        Approver.shared.pushToken = tokenParts.joined()
+        Approver.shared.pushToken(.apns(tokenParts.joined()))
      }
      ```
-     - tag: pushToken
+     
+     - Parameters:
+        - token: Push token with its [service type](x-source-tag://PushTokenType)
+     
+     - Tag: pushToken
      */
-    public var pushToken : String?
-    { didSet {  } }
-    
-    
-     /*
-     send notification
-     notification for push token
-     //@objc public static func getPermissionState() -> Approver.PermissionState {}
-    */
+    public static func pushToken(_ token: PushToken?) {
+        ApproverEngine.shared.pushToken(token)
+    }
     
     /**
      Log an event.
      
      - Parameters:
-     - name The name of the event to be tracked
-     - attributes Arbitrary key:values attributes to be tracked
+        - name The name of the event to be tracked
+        - value Arbitrary value to be tracked
      */
-    static func logEvent(_ name: String, attributes: [String : String]) {
-        
+    public static func logEvent(_ name: String, value: String) {
+        ApproverEngine.shared.logEvent(name, value)
     }
     
     /**
-     Log an user info.
+     Log a push info payload.
      
-     An user info uploads immediately
+     A push info payload uploads immediately
+     
+     - Note: If there is any impl of UNUserNotificationCenterDelegate then use the method insdie callbacks
+     to notify about a push notification being recieved.
      
      - Parameters:
-     - attributes Exact key-value attributes to be recorded.
+        - pushPayload The push notification payload has been received
      */
-    static func logUserInfo(_ attributes: [String : String]) {
-        
+    public static func logPush(pushPayload: [AnyHashable : Any]) {
+        ApproverEngine.shared.logPush(pushPayload: pushPayload)
+    }
+    
+    /**
+     Log a user's email and unique id if any
+     
+     - Warning: The data is requred to help to optimize an app experience
+     by making it easy to analyze and scale product and marketing experiments
+     
+     - Parameters:
+        - email User's email
+        - id User unique identifier. Can be nil if there is no any.
+    */
+    public static func logUser(email: String, id : String? = nil) {
+        ApproverEngine.shared.logUser(email: email, id: id)
     }
     
 } // class Approver
@@ -136,7 +160,7 @@ public extension Approver {
         - content: A UNNotificationContent object with the content to be displayed to the user.
      */
     static func didReceiveNotificationExtensionRequest(_ request: UNNotificationRequest, with content : UNMutableNotificationContent) {
-        
+        ApproverEngine.shared.didReceiveNotificationExtensionRequest(request, with: content)
     }
     
     /**
@@ -149,6 +173,9 @@ public extension Approver {
         - content: A UNNotificationContent object with the content to be displayed to the user.
      */
     static func serviceExtensionTimeWillExpire(_ request: UNNotificationRequest, with content: UNMutableNotificationContent) {
-        
+        ApproverEngine.shared.serviceExtensionTimeWillExpire(request, with: content)
     }
 }
+
+
+// UNNotificationResponse().notification.request.content.userInfo
