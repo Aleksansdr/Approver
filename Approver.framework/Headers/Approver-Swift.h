@@ -194,7 +194,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 /// Use the Approver SDK to design and send push notifications,
 /// track and report events occured in your application.
 /// Developers using the Metrics SDK with their app are required to register for
-/// a credential, and to specify the credential (appId) in their application.
+/// a credential, and to specify these credentials (appId, clientId, appCode) in their application.
 /// Failure to do so results in blocked access to certain features and degradation
 /// in the quality of other services.
 /// To obtain these credentials, visit the developer portal at https://api.approver.io/dev
@@ -209,7 +209,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 /// func application(_ application: UIApplication,
 /// didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 ///    // Replace 'YOUR_APP_ID' with your Approver App ID.
-///    Approver.initializeWithLaunchOptions(launchOptions, appId: 'YOUR_APP_ID')
+///    Approver.initializeWithLaunchOptions(launchOptions, appId: 'YOUR_APP_ID', clientId: 'YOUR_CLIENT_ID',  appCode: 'YOUR_APP_CODE')
 /// }
 ///
 /// \endcode
@@ -220,7 +220,11 @@ SWIFT_CLASS("_TtC8Approver8Approver")
 ///
 /// \param appId Approver SDK App Id obtained from developer portal at https://api.approver.io/dev
 ///
-+ (void)initializeWithLaunchOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> * _Nullable)launchOptions appId:(NSString * _Nonnull)appId;
+/// \param clientId Approver SDK Client Id obtained from developer portal at https://api.approver.io/dev
+///
+/// \param appKey Approver SDK App Key obtained from developer portal at https://api.approver.io/dev
+///
++ (void)initializeWithLaunchOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> * _Nullable)launchOptions appId:(NSString * _Nonnull)appId clientId:(NSString * _Nonnull)clientId appCode:(NSString * _Nonnull)appCode;
 /// Prompt Users to Enable Notifications
 /// \param options Constants for requesting authorization to interact with the user. By default the constatns are alert, sound, badge.
 ///
@@ -444,7 +448,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 /// Use the Approver SDK to design and send push notifications,
 /// track and report events occured in your application.
 /// Developers using the Metrics SDK with their app are required to register for
-/// a credential, and to specify the credential (appId) in their application.
+/// a credential, and to specify these credentials (appId, clientId, appCode) in their application.
 /// Failure to do so results in blocked access to certain features and degradation
 /// in the quality of other services.
 /// To obtain these credentials, visit the developer portal at https://api.approver.io/dev
@@ -459,7 +463,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 /// func application(_ application: UIApplication,
 /// didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 ///    // Replace 'YOUR_APP_ID' with your Approver App ID.
-///    Approver.initializeWithLaunchOptions(launchOptions, appId: 'YOUR_APP_ID')
+///    Approver.initializeWithLaunchOptions(launchOptions, appId: 'YOUR_APP_ID', clientId: 'YOUR_CLIENT_ID',  appCode: 'YOUR_APP_CODE')
 /// }
 ///
 /// \endcode
@@ -470,7 +474,11 @@ SWIFT_CLASS("_TtC8Approver8Approver")
 ///
 /// \param appId Approver SDK App Id obtained from developer portal at https://api.approver.io/dev
 ///
-+ (void)initializeWithLaunchOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> * _Nullable)launchOptions appId:(NSString * _Nonnull)appId;
+/// \param clientId Approver SDK Client Id obtained from developer portal at https://api.approver.io/dev
+///
+/// \param appKey Approver SDK App Key obtained from developer portal at https://api.approver.io/dev
+///
++ (void)initializeWithLaunchOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> * _Nullable)launchOptions appId:(NSString * _Nonnull)appId clientId:(NSString * _Nonnull)clientId appCode:(NSString * _Nonnull)appCode;
 /// Prompt Users to Enable Notifications
 /// \param options Constants for requesting authorization to interact with the user. By default the constatns are alert, sound, badge.
 ///

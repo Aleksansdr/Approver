@@ -17,7 +17,7 @@ import UserNotifications
  track and report events occured in your application.
  
  Developers using the Metrics SDK with their app are required to register for
- a credential, and to specify the credential (appId) in their application.
+ a credential, and to specify these credentials (appId, clientId, appCode) in their application.
  Failure to do so results in blocked access to certain features and degradation
  in the quality of other services.
  
@@ -36,7 +36,7 @@ import UserNotifications
  func application(_ application: UIApplication,
  didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Replace 'YOUR_APP_ID' with your Approver App ID.
-    Approver.initializeWithLaunchOptions(launchOptions, appId: 'YOUR_APP_ID')
+    Approver.initializeWithLaunchOptions(launchOptions, appId: 'YOUR_APP_ID', clientId: 'YOUR_CLIENT_ID',  appCode: 'YOUR_APP_CODE')
  }
  ```
  */
@@ -48,10 +48,17 @@ public final class Approver : NSObject {
      - Parameters:
         - launchOptions: A dictionary indicating the reason the app was launched (if any). The contents of this dictionary may be empty in situations where the user launched the app directly.
         - appId: Approver SDK App Id obtained from developer portal at https://api.approver.io/dev
+        - clientId: Approver SDK Client Id obtained from developer portal at https://api.approver.io/dev
+        - appKey: Approver SDK App Key obtained from developer portal at https://api.approver.io/dev
      */
     @objc public static func initializeWithLaunchOptions(_ launchOptions: [UIApplication.LaunchOptionsKey: Any]?,
-                                                         appId: String) {
-        ApproverEngine.shared.initialize(launchOptions: launchOptions, appId: appId)
+                                                         appId: String,
+                                                         clientId : String,
+                                                         appCode: String) {
+        ApproverEngine.shared.initialize(launchOptions: launchOptions,
+                                         appId: appId,
+                                         clientId: clientId,
+                                         appCode: appCode)
     }
     
     /**
