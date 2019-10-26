@@ -14,9 +14,9 @@ import UserNotifications
  Approver iOS SDK.
  
  Use the Approver SDK to design and send push notifications,
- track and report events occured in your application.
+ track and report events occurred in your application.
  
- Developers using the Metrics SDK with their app are required to register for
+ Developers using the Approver SDK with their app are required to register for
  a credential, and to specify these credentials (appId, clientId, appCode) in their application.
  Failure to do so results in blocked access to certain features and degradation
  in the quality of other services.
@@ -29,7 +29,7 @@ import UserNotifications
  
  Adding Credentials
  
- Ensure that you have provided the apiKey before using the Approver SDK.
+ Ensure that you have provided the appId, clientId, appCode before using the Approver SDK.
  For example, set them in your app delegate:
  
  ```
@@ -126,8 +126,6 @@ public final class Approver : NSObject {
     
     /**
      Log a push info payload.
-     
-     A push info payload uploads immediately
      
      - Note: If there is any impl of UNUserNotificationCenterDelegate then use the method insdie callbacks
      to notify about a push notification being recieved.
