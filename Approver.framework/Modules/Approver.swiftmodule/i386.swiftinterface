@@ -1,0 +1,32 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+// swift-module-flags: -target i386-apple-ios10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Approver
+import AdSupport
+@_exported import Approver
+import CommonCrypto
+import CoreTelephony
+import Foundation
+import StoreKit
+import Swift
+import SystemConfiguration
+import UIKit
+import UserNotifications
+@objc final public class Approver : ObjectiveC.NSObject {
+  @objc public static func initializeWithLaunchOptions(_ launchOptions: [UIKit.UIApplication.LaunchOptionsKey : Any]?, appId: Swift.String, clientId: Swift.String, appCode: Swift.String)
+  @objc public static func promptForPushNotifications(options: UserNotifications.UNAuthorizationOptions = [.alert, .sound, .badge], userResponce: (Swift.Bool) -> ())
+  public enum PushToken {
+    case apns(token: Swift.String)
+    case firebase(token: Swift.String)
+    case custom(token: Swift.String, serviceDesc: Swift.Dictionary<Swift.String, Swift.String>)
+  }
+  public static func pushToken(_ token: Approver.Approver.PushToken?)
+  public static func logEvent(_ name: Swift.String, value: Swift.String)
+  public static func logPush(pushPayload: [Swift.AnyHashable : Any])
+  public static func logUser(email: Swift.String, id: Swift.String? = nil)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension Approver {
+  public static func didReceiveNotificationExtensionRequest(_ request: UserNotifications.UNNotificationRequest, with content: UserNotifications.UNMutableNotificationContent)
+  public static func serviceExtensionTimeWillExpire(_ request: UserNotifications.UNNotificationRequest, with content: UserNotifications.UNMutableNotificationContent)
+}
