@@ -78,7 +78,7 @@ If no View has been registered previously for exact id yet then corresponding
 blanc view will be created on backend side and return instantly.
 If there is any problem with connection then preliminarily
 stored views are used. The file containing views information should be
-inserted into main bundle. The default name is: "DefaultDynamicViewsSource".
+inserted into main bundle. The default name is: "DefaultDynamicViewsSource.txt".
 In case of the file's custom name its name has to be passed as argument `localSourceName`
 into the function.
 
@@ -88,7 +88,7 @@ into the function.
 The following code example demonstrates how to create an Approver's view controller with dynamic view
 
 ```swift
-let vc = MetricsFactory.createMod(dynamicView: DynamicViewsIDs.introduction.rawValue)
+let vc = ApproverFactory.createMod(dynamicView: DynamicViewsIDs.introduction.rawValue)
 sender.present(vc, animated: true, completion: nil)
 ```
 
@@ -99,7 +99,7 @@ The Approver view controller can be used as any other view controller since it i
 For now callback actions are allowed with UIButton, UITextField
 
 ```swift
-let vc = MetricsFactory
+let vc = ApproverFactory
                 .createMod(dynamicView: DynamicViewsIDs.introduction.rawValue,
                     contentOperations: [
                     action(id: "bttnActionReg") { (event : ActionEvent) in
