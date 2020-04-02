@@ -77,20 +77,6 @@ public final class Approver : NSObject {
     }
     
     /**
-     Token that identifies this device to push services
-     
-     - Tag: PushTokenType
-    */
-    public enum PushToken {
-        /** APNs token */
-        case apns(token: String)
-        /** Firebase token */
-        case firebase(token: String)
-        /** Custom service token */
-        case custom(token: String, serviceDesc: Dictionary<String, String>)
-    }
-    
-    /**
      A globally unique token that identifies this device to APNs, Firebase or any other push services.
      
      - Important: If app doesn't use Approver [promptForPushNotifications(options:userResponce)](x-source-tag://promptForPushNotifications) approach

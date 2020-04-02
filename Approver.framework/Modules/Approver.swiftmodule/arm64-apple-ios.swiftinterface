@@ -11,15 +11,15 @@ import Swift
 import SystemConfiguration
 import UIKit
 import UserNotifications
+public enum PushToken {
+  case apns(token: Swift.String)
+  case firebase(token: Swift.String)
+  case custom(token: Swift.String, serviceDesc: Swift.Dictionary<Swift.String, Swift.String>)
+}
 @objc @_inheritsConvenienceInitializers final public class Approver : ObjectiveC.NSObject {
   @objc public static func initializeWithLaunchOptions(_ launchOptions: [UIKit.UIApplication.LaunchOptionsKey : Any]?, appId: Swift.String, clientId: Swift.String, appCode: Swift.String)
   @objc public static func promptForPushNotifications(options: UserNotifications.UNAuthorizationOptions = [.alert, .sound, .badge], userResponce: (Swift.Bool) -> ())
-  public enum PushToken {
-    case apns(token: Swift.String)
-    case firebase(token: Swift.String)
-    case custom(token: Swift.String, serviceDesc: Swift.Dictionary<Swift.String, Swift.String>)
-  }
-  public static func pushToken(_ token: Approver.Approver.PushToken?)
+  public static func pushToken(_ token: Approver.PushToken?)
   public static func logEvent(_ name: Swift.String, value: Swift.String)
   public static func logPush(pushPayload: [Swift.AnyHashable : Any])
   public static func logUser(email: Swift.String, id: Swift.String? = nil)
