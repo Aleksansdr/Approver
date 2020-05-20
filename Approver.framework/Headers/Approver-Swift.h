@@ -238,23 +238,29 @@ SWIFT_CLASS("_TtC8Approver8Approver")
 /// Initialize the mandatory Approver SDK Credentials notably App Id
 /// \param launchOptions A dictionary indicating the reason the app was launched (if any). The contents of this dictionary may be empty in situations where the user launched the app directly.
 ///
-/// \param appId Approver SDK App Id obtained from developer portal at https://api.approver.io/dev
+/// \param appId Approver SDK App Id obtained from developer portal at https://api.approver.io
 ///
-/// \param clientId Approver SDK Client Id obtained from developer portal at https://api.approver.io/dev
+/// \param clientId Approver SDK Client Id obtained from developer portal at https://api.approver.io
 ///
-/// \param appKey Approver SDK App Key obtained from developer portal at https://api.approver.io/dev
+/// \param appKey Approver SDK App Key obtained from developer portal at https://api.approver.io
 ///
-+ (void)initializeWithLaunchOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> * _Nullable)launchOptions appId:(NSString * _Nonnull)appId clientId:(NSString * _Nonnull)clientId appCode:(NSString * _Nonnull)appCode;
+/// \param appVersion Application version
+///
++ (void)initializeWithLaunchOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> * _Nullable)launchOptions appId:(NSString * _Nonnull)appId clientId:(NSString * _Nonnull)clientId appCode:(NSString * _Nonnull)appCode appVersion:(NSString * _Nullable)appVersion;
 /// Prompt Users to Enable Notifications
+/// warning:
+/// Assigning UNUserNotificationCenterDelegate delegate after these methods are called, otherwise might cause you to miss incoming notifications. The delegate will be proxied object, it won’t be the same as has been assigned.
 /// \param options Constants for requesting authorization to interact with the user. By default the constatns are alert, sound, badge.
 ///
 /// \param userResponce The block to execute asynchronously with the results. This block may be executed on a background thread. The block has no return value and has the following parameters:
 ///
 /// \param granted A Boolean value indicating whether authorization was granted. The value of this parameter is true when authorization was granted for one or more options. The value is false when authorization is denied for all options.
 ///
-+ (void)promptForPushNotificationsWithOptions:(UNAuthorizationOptions)options userResponce:(SWIFT_NOESCAPE void (^ _Nonnull)(BOOL))userResponce;
++ (void)promptForPushNotificationsWithOptions:(UNAuthorizationOptions)options userResponce:(void (^ _Nonnull)(BOOL))userResponce;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
 
 
 
@@ -512,23 +518,29 @@ SWIFT_CLASS("_TtC8Approver8Approver")
 /// Initialize the mandatory Approver SDK Credentials notably App Id
 /// \param launchOptions A dictionary indicating the reason the app was launched (if any). The contents of this dictionary may be empty in situations where the user launched the app directly.
 ///
-/// \param appId Approver SDK App Id obtained from developer portal at https://api.approver.io/dev
+/// \param appId Approver SDK App Id obtained from developer portal at https://api.approver.io
 ///
-/// \param clientId Approver SDK Client Id obtained from developer portal at https://api.approver.io/dev
+/// \param clientId Approver SDK Client Id obtained from developer portal at https://api.approver.io
 ///
-/// \param appKey Approver SDK App Key obtained from developer portal at https://api.approver.io/dev
+/// \param appKey Approver SDK App Key obtained from developer portal at https://api.approver.io
 ///
-+ (void)initializeWithLaunchOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> * _Nullable)launchOptions appId:(NSString * _Nonnull)appId clientId:(NSString * _Nonnull)clientId appCode:(NSString * _Nonnull)appCode;
+/// \param appVersion Application version
+///
++ (void)initializeWithLaunchOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> * _Nullable)launchOptions appId:(NSString * _Nonnull)appId clientId:(NSString * _Nonnull)clientId appCode:(NSString * _Nonnull)appCode appVersion:(NSString * _Nullable)appVersion;
 /// Prompt Users to Enable Notifications
+/// warning:
+/// Assigning UNUserNotificationCenterDelegate delegate after these methods are called, otherwise might cause you to miss incoming notifications. The delegate will be proxied object, it won’t be the same as has been assigned.
 /// \param options Constants for requesting authorization to interact with the user. By default the constatns are alert, sound, badge.
 ///
 /// \param userResponce The block to execute asynchronously with the results. This block may be executed on a background thread. The block has no return value and has the following parameters:
 ///
 /// \param granted A Boolean value indicating whether authorization was granted. The value of this parameter is true when authorization was granted for one or more options. The value is false when authorization is denied for all options.
 ///
-+ (void)promptForPushNotificationsWithOptions:(UNAuthorizationOptions)options userResponce:(SWIFT_NOESCAPE void (^ _Nonnull)(BOOL))userResponce;
++ (void)promptForPushNotificationsWithOptions:(UNAuthorizationOptions)options userResponce:(void (^ _Nonnull)(BOOL))userResponce;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
 
 
 

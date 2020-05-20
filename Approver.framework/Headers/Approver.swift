@@ -47,22 +47,27 @@ public final class Approver : NSObject {
      
      - Parameters:
         - launchOptions: A dictionary indicating the reason the app was launched (if any). The contents of this dictionary may be empty in situations where the user launched the app directly.
-        - appId: Approver SDK App Id obtained from developer portal at https://api.approver.io/dev
-        - clientId: Approver SDK Client Id obtained from developer portal at https://api.approver.io/dev
-        - appKey: Approver SDK App Key obtained from developer portal at https://api.approver.io/dev
+        - appId: Approver SDK App Id obtained from developer portal at https://api.approver.io
+        - clientId: Approver SDK Client Id obtained from developer portal at https://api.approver.io
+        - appKey: Approver SDK App Key obtained from developer portal at https://api.approver.io
+        - appVersion: Application version
      */
     @objc public static func initializeWithLaunchOptions(_ launchOptions: [UIApplication.LaunchOptionsKey: Any]?,
                                                          appId: String,
                                                          clientId : String,
-                                                         appCode: String) {
+                                                         appCode: String,
+                                                         appVersion: String? = nil) {
         ApproverEngine.shared.initialize(launchOptions: launchOptions,
                                          appId: appId,
                                          clientId: clientId,
-                                         appCode: appCode)
+                                         appCode: appCode,
+                                         appVersion: appVersion)
     }
     
     /**
      Prompt Users to Enable Notifications
+     
+     - Warning: Assigning UNUserNotificationCenterDelegate delegate after these methods are called, otherwise might cause you to miss incoming notifications. The delegate will be proxied object, it won't be the same as has been assigned.
      
      - Parameters:
         - options: Constants for requesting authorization to interact with the user. By default the constatns are alert, sound, badge.
@@ -72,8 +77,10 @@ public final class Approver : NSObject {
      - Tag: promptForPushNotifications
     */
     @objc public static func promptForPushNotifications(options: UNAuthorizationOptions = [.alert, .sound, .badge],
-                                                        userResponce: (_ granted: Bool) -> () ) {
-        ApproverEngine.shared.promptForPushNotifications(options: options, userResponce: userResponce)
+                                                        userResponce: @escaping (_ granted: Bool) -> () = { _ in }) {
+        
+        ApproverEngine.shared.promptForPushNotifications(options: options,
+                                                         userResponce: userResponce)
     }
     
     /**
@@ -135,6 +142,25 @@ public final class Approver : NSObject {
     */
     public static func logUser(email: String, id : String? = nil) {
         ApproverEngine.shared.logUser(email: email, id: id)
+    }
+    
+    /**
+     Changes how notifications display while app in foreground
+     
+     - Warning: The parameter doesn't have any impact if you have overridden UNUserNotificationCenterDelegate.userNotificationCenter(_:willPresent:withCompletionHandler:))
+     
+     - Parameters:
+        - type Use the [type](x-source-tag://NotificationDisplayType) parameter to specify how you want the system to alert the user, if at all
+     */
+    public static var inFocusDisplayType : NotificationDisplayType {
+        get { ApproverEngine.shared.inFocusDisplayType }
+        set { ApproverEngine.shared.inFocusDisplayType = newValue }
+    }
+    
+    /// Opt users in or out of receiving notifications
+    public static var subscription : Bool {
+        get { ApproverEngine.shared.subscription }
+        set { ApproverEngine.shared.subscription = newValue }
     }
     
 } // class Approver
