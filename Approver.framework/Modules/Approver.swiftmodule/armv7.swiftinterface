@@ -32,6 +32,7 @@ public enum NotificationDisplayType {
   public static func pushToken(_ token: Approver.PushToken?)
   public static func logEvent(_ name: Swift.String, value: Swift.String)
   public static func logPush(pushPayload: [Swift.AnyHashable : Any])
+  public static func logUnseenPush(pushPayload: [Swift.AnyHashable : Any])
   public static func logUser(email: Swift.String, id: Swift.String? = nil)
   public static var inFocusDisplayType: Approver.NotificationDisplayType {
     get

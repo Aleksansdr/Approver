@@ -131,6 +131,20 @@ public final class Approver : NSObject {
     }
     
     /**
+     Log an unseen push info payload.
+     
+     - Note: If there is any impl of UNUserNotificationCenterDelegate.userNotificationCenter(_:willPresent:withCompletionHandler:)
+     and a push notification won't be shown as an app in foreground then use the method insdie the callback to notify about the push notification
+     being recieved but unseen.
+     
+     - Parameters:
+        - pushPayload The push notification payload has been received
+     */
+    public static func logUnseenPush(pushPayload: [AnyHashable : Any]) {
+        ApproverEngine.shared.logUnseenPush(pushPayload: pushPayload)
+    }
+    
+    /**
      Log a user's email and unique id if any
      
      - Warning: The data is requred to help to optimize an app experience
